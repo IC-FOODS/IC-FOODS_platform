@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+tapipy = "==1.3.3"
+django = "==4.2.1"
+djangorestframework = "==3.14.0"
+django-environ = "==0.10.0"
+django-extensions = "==3.2.1"
+ipython = "==8.13.2"
+requests = "==2.30.0"
+django-cors-headers = "==4.0.0"
+django-oauth-toolkit = "==2.2.0"
+psycopg2-binary = "==2.9.6"
+pyjwt = "==2.7.0"
+django-rest-knox = "==4.2.0"
+djangorestframework-simplejwt = "==5.2.2"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
