@@ -27,7 +27,24 @@ services:
     ports:
       - 5432:5432
 
+  nginx:
+    image: valian/docker-nginx-auto-ssl
+    restart: on-failure
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ssl_data:/etc/resty-auto-ssl
+    env_file:
+      - ./.env.nginx
+    depends_on:
+      - django
+      - postgres
+
+  myapp:
+    image: nginx
 
 volumes:
   postgres_data:
   static_data:
+  ssl_data:
