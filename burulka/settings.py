@@ -19,6 +19,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CSRF_TRUSTED_ORIGINS = json.loads(os.environ.get("CSRF_TRUSTED_ORIGINS"))
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+# Allow session cookie access from Javascript
+SESSION_COOKIE_HTTPONLY = False
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
