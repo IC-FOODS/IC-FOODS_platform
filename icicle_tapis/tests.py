@@ -1,5 +1,5 @@
 from django.test import TestCase
-
+from django.urls import reverse
 
 class TestTapisAPI(TestCase):
     """Tests for Travelport APIs"""
@@ -20,3 +20,20 @@ class TestTapisAPI(TestCase):
             },
         )
         import pdb; pdb.set_trace()
+
+
+class TestTapisUserInfoAPI(TestCase):
+    """Tests for Travelport APIs"""
+
+    def test_user_info(self):
+        """Test the basic login flow"""
+
+        response = self.client.post(
+            reverse("user-info"),
+        )
+        print(response.content)
+
+        response = self.client.post(
+            reverse("user-info"),
+        )
+        print(response.content)
