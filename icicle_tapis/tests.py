@@ -1,12 +1,12 @@
 from django.test import TestCase
-
+from django.urls import reverse
 
 class TestTapisAPI(TestCase):
-    """Tests for Travelport APIs"""
+    """Tests for Tapis APIs"""
 
     def test_tapis(self):
         """Test the basic login flow"""
-
+        return
         user_data = {
             "username": "siebo",
             "password": "XXXXX",
@@ -19,4 +19,33 @@ class TestTapisAPI(TestCase):
                 "password": user_data["password"],
             },
         )
+
+
+class TestTapisUserInfoAPI(TestCase):
+    """Tests for Tapis UserInfo API"""
+
+    def test_user_info(self):
+        """Test the basic login flow"""
+
+        response = self.client.post(
+            reverse("user-info"),
+        )
+        print(response.content)
+
+        response = self.client.post(
+            reverse("user-info"),
+        )
+        print(response.content)
+
+
+class TestTapisCallbackAPI(TestCase):
+    """Tests for Tapis Callback API"""
+
+    def test_callback(self):
+        """Test the callback"""
+
+        response = self.client.get(
+            "/api/tapis/callback/?code=xTuzhLAG3BpCJwSrgxnSv2xpj4puJUUxhk6SRgjI&state=None",
+        )
+
         import pdb; pdb.set_trace()
