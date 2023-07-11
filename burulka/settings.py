@@ -124,3 +124,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TAPIS_API_BASE=os.environ.get("TAPIS_API_BASE", "https://smartfoods.tapis.io")
+
+TAPIS_CLIENT_ID=os.environ.get("TAPIS_CLIENT_ID")
+TAPIS_CLIENT_KEY=os.environ.get("TAPIS_CLIENT_KEY")

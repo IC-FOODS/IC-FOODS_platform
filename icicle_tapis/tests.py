@@ -19,7 +19,6 @@ class TestTapisAPI(TestCase):
                 "password": user_data["password"],
             },
         )
-        import pdb; pdb.set_trace()
 
 
 class TestTapisUserInfoAPI(TestCase):
@@ -45,6 +44,8 @@ class TestTapisCallbackAPI(TestCase):
     def test_callback(self):
         """Test the callback"""
 
-        response = self.client.post(
-            reverse("callback"),
+        response = self.client.get(
+            "/api/tapis/callback/?code=xTuzhLAG3BpCJwSrgxnSv2xpj4puJUUxhk6SRgjI&state=None",
         )
+
+        import pdb; pdb.set_trace()

@@ -10,7 +10,6 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from tapipy.tapis import Tapis
 
-
 from icicle_tapis.serializers import TapisLoginSerializer
 from icicle_tapis.utils import (
     is_logged_in,
@@ -45,29 +44,39 @@ class TapisLoginAPI(GenericAPIView):
 class TapisCallbackAPI(APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request, *args, **kwargs):lu4chei4
-    
+    def get(self, request, *args, **kwargs):
         try:
-            code = request._data.get('code')
+            code = request.GET.get('code')
+        except:
+            code = None
         if not code:
-            raise Exception(f"Error: No code in request; debug: {request.args}")
+            raise Exception(f"Error: No code in request")
         url = f"{settings.TAPIS_API_BASE}/v3/oauth2/tokens"
         data = {
             "code": code,
-            "redirect_uri": "https://73f3-50-239-66-226.ngrok-free.app/api/tapis/callback",
+            "redirect_uri": "https://icfoods.o18s.com/api/tapis/callback",
             "grant_type": "authorization_code",
         }
         try:
-            response = requests.post(url, data=data, auth=(config['client_id'], config['client_key']))
+            response = requests.post(
+                url,
+                data=data,
+                auth=(
+                    settings.TAPIS_CLIENT_ID,
+                    settings.TAPIS_CLIENT_KEY,
+                ),
+            )
             response.raise_for_status()
             json_resp = response.json()
             token = json_resp['result']['access_token']['access_token']
         except Exception as e:
             raise Exception(f"Error generating Tapis token; debug: {e}")
 
-        username = get_username(token)
-        roles = add_user_to_session(username, token)
-        return HttpResponse('OK')
+        #username = get_username(token)
+        #roles = add_user_to_session(username, token)
+        #return HttpResponse('OK')
+        return HttpResponse(token)
+
 
 class TapisUserInfoAPI(APIView):
     permission_classes = (AllowAny,)
