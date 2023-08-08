@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+jsonschema="==4.17.3"
 tapipy = "==1.3.3"
 django = "==4.2.1"
 djangorestframework = "==3.14.0"

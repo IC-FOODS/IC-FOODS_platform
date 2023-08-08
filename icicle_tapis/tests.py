@@ -1,41 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse
 
-class TestTapisAPI(TestCase):
-    """Tests for Tapis APIs"""
 
-    def test_tapis(self):
-        """Test the basic login flow"""
-        return
-        user_data = {
-            "username": "siebo",
-            "password": "XXXXX",
-        }
-
-        response = self.client.post(
-            "/api/tapis/login/",
-            data={
-                "username": user_data["username"],
-                "password": user_data["password"],
-            },
-        )
-
-
-class TestTapisUserInfoAPI(TestCase):
-    """Tests for Tapis UserInfo API"""
-
-    def test_user_info(self):
-        """Test the basic login flow"""
-
-        response = self.client.post(
-            reverse("user-info"),
-        )
-        print(response.content)
-
-        response = self.client.post(
-            reverse("user-info"),
-        )
-        print(response.content)
+# These tests are meant to be run manually.
+# Populate the following vars with an unused code
+# or valid JWT token to run the respective tests.
+TEST_CODE = ""
+TEST_TOKEN = ""
 
 
 class TestTapisCallbackAPI(TestCase):
@@ -44,8 +15,27 @@ class TestTapisCallbackAPI(TestCase):
     def test_callback(self):
         """Test the callback"""
 
+        if len(TEST_CODE) == 0:
+            return
+
         response = self.client.get(
-            "/api/tapis/callback/?code=xTuzhLAG3BpCJwSrgxnSv2xpj4puJUUxhk6SRgjI&state=None",
+            f"/api/tapis/callback/?code={TEST_CODE}&state=None",
         )
 
-        import pdb; pdb.set_trace()
+        self.assertEqual(response.status_code, 200)
+
+
+class TestProtectedAPI(TestCase):
+    """Tests for Tapis Callback API"""
+
+    def test_auth(self):
+        """Test the callback"""
+
+        if len(TEST_TOKEN) == 0:
+            return
+
+        response = self.client.get(
+            reverse("protected"),
+            **{"HTTP_AUTHORIZATION": f"Token {TEST_TOKEN}"}
+        )
+        self.assertEqual(response.status_code, 200)

@@ -6,10 +6,11 @@ from django.http import HttpResponse
 from django.urls import reverse
 from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from tapipy.tapis import Tapis
 
+from icicle_tapis.auth import TapisAuthentication
 from icicle_tapis.serializers import TapisLoginSerializer
 from icicle_tapis.utils import (
     is_logged_in,
@@ -17,28 +18,6 @@ from icicle_tapis.utils import (
     add_user_to_session,
     clear_session,
 )
-
-class TapisLoginAPI(GenericAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = TapisLoginSerializer
-
-    def post(self, request, *args, **kwargs):
-
-        username = request.data["username"]
-        password = request.data["password"]
-
-        t=Tapis(
-            base_url=settings.TAPIS_API_BASE,
-            username=username,
-            password=password,
-        )
-        t.get_tokens()
-        token_str = str(t.access_token).split("\n")[1]
-        token = token_str.split("access_token:")[1].strip()
-
-        return Response({
-            "token": token
-        })
 
 
 class TapisCallbackAPI(APIView):
@@ -72,23 +51,14 @@ class TapisCallbackAPI(APIView):
         except Exception as e:
             raise Exception(f"Error generating Tapis token; debug: {e}")
 
-        #username = get_username(token)
-        #roles = add_user_to_session(username, token)
-        #return HttpResponse('OK')
         return HttpResponse(token)
 
 
-class TapisUserInfoAPI(APIView):
-    permission_classes = (AllowAny,)
+class TapisProtectedView(APIView):
+    """Test class for Tapis Auth"""
+    authentication_classes = (TapisAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
-    def post(self, request, *args, **kwargs):
-
-        if 'cookie' in request.COOKIES:
-            value = request.COOKIES['cookie']
-            response = HttpResponse('Works')
-        else:
-            response = HttpResponse('Does Not Works')
-            response.set_cookie('cookie', 'MY COOKIE VALUE')
-
-        import pdb; pdb.set_trace()
-        return response
+    def get(self, request, *args, **kwargs):
+        """Verify that the JWT auth works"""
+        return HttpResponse("Works!")

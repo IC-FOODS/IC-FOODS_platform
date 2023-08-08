@@ -76,9 +76,10 @@ WSGI_APPLICATION = 'burulka.wsgi.application'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        "icicle_tapis.auth.TapisAuthentication",
         "rest_framework.authentication.BasicAuthentication",
-        "knox.auth.TokenAuthentication",
-        "rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication",
+        #"knox.auth.TokenAuthentication",
+        #"rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication",
     ),
 }
 
