@@ -1,20 +1,22 @@
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
+from icicle_tapis.auth import TapisAuthentication
 from icicle_storage.models import JSONObject
-from icicle_storage.serializers import JSONObjectSerializer
+from icicle_storage.serializers import JSONObjectSerializer, JSONObjectMinSerializer
 
 
 class JSONObjectListAPI(ListAPIView):
     """List for JSONObjects"""
     permission_classes = (AllowAny,)
     queryset = JSONObject.objects.all()
-    serializer_class = JSONObjectSerializer
+    serializer_class = JSONObjectMinSerializer
 
 
 class JSONObjectCreateAPI(CreateAPIView):
     """API for creating JSONObjects"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = JSONObject.objects.all()
     serializer_class = JSONObjectSerializer
 

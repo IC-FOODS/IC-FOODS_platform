@@ -19,6 +19,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CSRF_TRUSTED_ORIGINS = json.loads(os.environ.get("CSRF_TRUSTED_ORIGINS"))
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+# Allow session cookie access from Javascript
+SESSION_COOKIE_HTTPONLY = False
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,9 +76,10 @@ WSGI_APPLICATION = 'burulka.wsgi.application'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        "icicle_tapis.auth.TapisAuthentication",
         "rest_framework.authentication.BasicAuthentication",
-        "knox.auth.TokenAuthentication",
-        "rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication",
+        #"knox.auth.TokenAuthentication",
+        #"rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication",
     ),
 }
 
@@ -119,3 +125,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TAPIS_API_BASE=os.environ.get("TAPIS_API_BASE", "https://smartfoods.tapis.io")
+
+TAPIS_CLIENT_ID=os.environ.get("TAPIS_CLIENT_ID")
+TAPIS_CLIENT_KEY=os.environ.get("TAPIS_CLIENT_KEY")
