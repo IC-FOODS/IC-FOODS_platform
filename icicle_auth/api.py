@@ -6,9 +6,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from icicle_auth.serializers import (
-LoginSerializer,
-RegisterSerializer,
-UserSerializer,
+    LoginSerializer,
+    RegisterSerializer,
+    UserSerializer,
 )
 
 

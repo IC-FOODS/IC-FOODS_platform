@@ -21,9 +21,16 @@ from icicle_tapis.utils import (
 
 
 class TapisCallbackAPI(APIView):
+    """
+    Login callback API
+
+    Receives a one-time code from the post-login callback URL
+    and exchanges it for a JWT token.
+    """
     permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
+        """HTTP GET method"""
         try:
             code = request.GET.get('code')
         except:
@@ -49,7 +56,7 @@ class TapisCallbackAPI(APIView):
             json_resp = response.json()
             token = json_resp['result']['access_token']['access_token']
         except Exception as e:
-            raise Exception(f"Error generating Tapis token; debug: {e}")
+            raise Exception(f"Error generating Tapis token: {e}")
 
         return HttpResponse(token)
 

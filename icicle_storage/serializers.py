@@ -12,3 +12,14 @@ class JSONObjectSerializer(serializers.ModelSerializer):
         model = JSONObject
         fields = ["uuid", "title", "owner", "json_data"]
         extra_kwargs = {"uuid": {"read_only": True}}
+
+
+class JSONObjectMinSerializer(serializers.ModelSerializer):
+    """JSONObject Minimalist Serializer"""
+
+    class Meta(object):
+        """Meta class for field info"""
+
+        model = JSONObject
+        fields = ["uuid", "title", "owner"]
+        extra_kwargs = {"uuid": {"read_only": True}}
