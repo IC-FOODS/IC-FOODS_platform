@@ -3,21 +3,10 @@ import json
 
 from django.conf import settings
 from django.http import HttpResponse
-from django.urls import reverse
-from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.response import Response
-from tapipy.tapis import Tapis
 
 from icicle_tapis.auth import TapisAuthentication
-from icicle_tapis.serializers import TapisLoginSerializer
-from icicle_tapis.utils import (
-    is_logged_in,
-    get_username,
-    add_user_to_session,
-    clear_session,
-)
 
 
 class TapisCallbackAPI(APIView):
