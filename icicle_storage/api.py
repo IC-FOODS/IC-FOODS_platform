@@ -12,6 +12,11 @@ class JSONObjectListAPI(ListAPIView):
     queryset = JSONObject.objects.all()
     serializer_class = JSONObjectMinSerializer
 
+    def get_queryset(self):
+        """Show only a users own data sets"""
+        user_objects = JSONObject.objects.filter(owner=self.request.user.email)
+        return user_objects
+
 
 class JSONObjectCreateAPI(CreateAPIView):
     """API for creating JSONObjects"""
