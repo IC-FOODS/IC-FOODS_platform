@@ -1,9 +1,18 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+)
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from icicle_tapis.auth import TapisAuthentication
 from icicle_storage.models import JSONObject
-from icicle_storage.serializers import JSONObjectSerializer, JSONObjectMinSerializer
+from icicle_storage.serializers import (
+    JSONObjectCreateSerializer,
+    JSONObjectSerializer,
+    JSONObjectMinSerializer,
+)
 
 
 class JSONObjectListAPI(ListAPIView):
@@ -23,12 +32,27 @@ class JSONObjectCreateAPI(CreateAPIView):
     permission_classes = (IsAuthenticated,)
     authentication_classes = (TapisAuthentication,)
     queryset = JSONObject.objects.all()
-    serializer_class = JSONObjectSerializer
+    serializer_class = JSONObjectCreateSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["owner"] = self.request.user.email
+        return context
 
 
 class JSONObjectViewAPI(RetrieveAPIView):
-    """API for getting a single Act"""
+    """API for getting a single JSONObject"""
     permission_classes = (AllowAny,)
+    serializer_class = JSONObjectSerializer
+    queryset = JSONObject.objects.all()
+    lookup_field = "uuid"
+
+
+class JSONObjectDeleteAPI(DestroyAPIView):
+    """API for deleting a single JSONObject"""
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
+    
     serializer_class = JSONObjectSerializer
     queryset = JSONObject.objects.all()
     lookup_field = "uuid"

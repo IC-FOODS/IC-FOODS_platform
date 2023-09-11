@@ -10,3 +10,4 @@ class JSONObject(UUIDBaseModel):
     title = models.CharField(max_length=128,blank=False,)
     owner = models.CharField(max_length=64,blank=False,)
     json_data = models.JSONField(blank=True,null=True,)
+    public = models.BooleanField(default=False)
