@@ -21,6 +21,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=128)),
                 ('owner', models.CharField(max_length=64)),
                 ('json_data', models.JSONField(blank=True, null=True)),
+                ("public", models.BooleanField(default=False)),
             ],
             options={
                 'ordering': ['-created_at'],
