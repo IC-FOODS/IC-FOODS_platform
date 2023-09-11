@@ -23,8 +23,13 @@ class JSONObjectListAPI(ListAPIView):
 
     def get_queryset(self):
         """Show only a users own data sets"""
-        user_objects = JSONObject.objects.filter(owner=self.request.user.email)
-        return user_objects
+        public_objects = JSONObject.objects.filter(public=True)
+
+        if self.request.user.is_authenticated:
+            user_objects = JSONObject.objects.filter(owner=self.request.user.email)
+            return public_objects.union(user_objects)
+        else:
+            return public_objects
 
 
 class JSONObjectCreateAPI(CreateAPIView):
@@ -52,7 +57,7 @@ class JSONObjectDeleteAPI(DestroyAPIView):
     """API for deleting a single JSONObject"""
     permission_classes = (IsAuthenticated,)
     authentication_classes = (TapisAuthentication,)
-    
+
     serializer_class = JSONObjectSerializer
     queryset = JSONObject.objects.all()
     lookup_field = "uuid"
