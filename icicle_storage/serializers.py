@@ -21,8 +21,8 @@ class JSONObjectCreateSerializer(serializers.ModelSerializer):
         """Meta class for field info"""
 
         model = JSONObject
-        fields = ["uuid", "title", "owner", "json_data"]
-        extra_kwargs = {"uuid": {"read_only": True}}
+        fields = ["uuid", "title", "json_data"]
+        extra_kwargs = {"uuid": {"read_only": True}, "owner": {"read_only": True}}
 
     def create(self, validated_data):
         """Lookup owner from Tapis identity and add to validated_data"""
