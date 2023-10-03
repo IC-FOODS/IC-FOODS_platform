@@ -2,6 +2,7 @@ from django.urls import path
 
 from icicle_storage.api import (
     JSONObjectListAPI,
+    JSONObjectListPublicAPI,
     JSONObjectCreateAPI,
     JSONObjectDeleteAPI,
     JSONObjectViewAPI,
@@ -17,6 +18,11 @@ urlpatterns = [
     path(
         "json-objects/",
         JSONObjectListAPI.as_view(),
+        name="json-objects",
+    ),
+    path(
+        "json-objects-public/",
+        JSONObjectListPublicAPI.as_view(),
         name="json-objects",
     ),
     path(
