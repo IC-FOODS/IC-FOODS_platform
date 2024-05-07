@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'icicle_auth',
     'icicle_base',
+    'icicle_know',
     'icicle_storage',
     'icicle_tapis',
 ]
