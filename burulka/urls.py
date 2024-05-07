@@ -8,4 +8,5 @@ urlpatterns = [
     path("api/auth/", include("icicle_auth.urls")),
     path("api/storage/", include("icicle_storage.urls")),
     path("api/tapis/", include("icicle_tapis.urls")),
+    path("api/know/", include("icicle_know.urls")),
 ]
