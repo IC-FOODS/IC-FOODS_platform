@@ -6,21 +6,61 @@ from rest_framework.generics import (
 from rest_framework.permissions import AllowAny
 
 from icicle_know.models import (
+    Component,
     Concept,
     Relation,
     Instance,
     Proposition,
+    Value,
+    ValueAnnotation,
+    Resource,
     Node,
     Edge,
+    Map,
+    EdgeControlPoint,
+    NodeResource,
+    Stylesheet,
 )
 from icicle_know.serializers import (
+    ComponentSerializer,
     ConceptSerializer,
+    ValueSerializer,
+    ValueAnnotationSerializer,
+    ResourceSerializer,
     RelationSerializer,
+    MapSerializer,
     InstanceSerializer,
     PropositionSerializer,
     NodeSerializer,
     EdgeSerializer,
+    EdgeControlPointSerializer,
+    NodeResourceSerializer,
+    StylesheetSerializer,
 )
+
+
+# Component APIS
+class ComponentListAPI(ListAPIView):
+    """List API for Components"""
+    permission_classes = (AllowAny,)
+    queryset = Component.objects.all()
+    serializer_class = ComponentSerializer
+
+
+class ComponentCreateAPI(CreateAPIView):
+    """API for creating Components"""
+    permission_classes = (AllowAny,)
+    queryset = Component.objects.all()
+    serializer_class = ComponentSerializer
+
+
+class ComponentViewAPI(RetrieveAPIView):
+    """API for getting a single Component"""
+    permission_classes = (AllowAny,)
+    serializer_class = ComponentSerializer
+    queryset = Component.objects.all()
+    lookup_field = "uuid"
+
 
 # Concept APIS
 class ConceptListAPI(ListAPIView):
@@ -114,6 +154,75 @@ class PropositionViewAPI(RetrieveAPIView):
     lookup_field = "uuid"
 
 
+# Value APIS
+class ValueListAPI(ListAPIView):
+    """List API for Values"""
+    permission_classes = (AllowAny,)
+    queryset = Value.objects.all()
+    serializer_class = ValueSerializer
+
+
+class ValueCreateAPI(CreateAPIView):
+    """API for creating Values"""
+    permission_classes = (AllowAny,)
+    queryset = Value.objects.all()
+    serializer_class = ValueSerializer
+
+
+class ValueViewAPI(RetrieveAPIView):
+    """API for getting a single Value"""
+    permission_classes = (AllowAny,)
+    serializer_class = ValueSerializer
+    queryset = Value.objects.all()
+    lookup_field = "uuid"
+
+
+# ValueAnnotation APIS
+class ValueAnnotationListAPI(ListAPIView):
+    """List API for ValueAnnotations"""
+    permission_classes = (AllowAny,)
+    queryset = ValueAnnotation.objects.all()
+    serializer_class = ValueAnnotationSerializer
+
+
+class ValueAnnotationCreateAPI(CreateAPIView):
+    """API for creating ValueAnnotations"""
+    permission_classes = (AllowAny,)
+    queryset = ValueAnnotation.objects.all()
+    serializer_class = ValueAnnotationSerializer
+
+
+class ValueAnnotationViewAPI(RetrieveAPIView):
+    """API for getting a single ValueAnnotation"""
+    permission_classes = (AllowAny,)
+    serializer_class = ValueAnnotationSerializer
+    queryset = ValueAnnotation.objects.all()
+    lookup_field = "uuid"
+
+
+# Resource APIS
+class ResourceListAPI(ListAPIView):
+    """List API for Resources"""
+    permission_classes = (AllowAny,)
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
+
+
+class ResourceCreateAPI(CreateAPIView):
+    """API for creating Resources"""
+    permission_classes = (AllowAny,)
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
+
+
+class ResourceViewAPI(RetrieveAPIView):
+    """API for getting a single Resource"""
+    permission_classes = (AllowAny,)
+    serializer_class = ResourceSerializer
+    queryset = Resource.objects.all()
+    lookup_field = "uuid"
+
+
 # Node APIS
 class NodeListAPI(ListAPIView):
     """List API for Nodes"""
@@ -157,4 +266,96 @@ class EdgeViewAPI(RetrieveAPIView):
     permission_classes = (AllowAny,)
     serializer_class = EdgeSerializer
     queryset = Edge.objects.all()
+    lookup_field = "uuid"
+
+
+# Map APIS
+class MapListAPI(ListAPIView):
+    """List API for Maps"""
+    permission_classes = (AllowAny,)
+    queryset = Map.objects.all()
+    serializer_class = MapSerializer
+
+
+class MapCreateAPI(CreateAPIView):
+    """API for creating Maps"""
+    permission_classes = (AllowAny,)
+    queryset = Map.objects.all()
+    serializer_class = MapSerializer
+
+
+class MapViewAPI(RetrieveAPIView):
+    """API for getting a single Map"""
+    permission_classes = (AllowAny,)
+    serializer_class = MapSerializer
+    queryset = Map.objects.all()
+    lookup_field = "uuid"
+
+
+# EdgeControlPoint APIS
+class EdgeControlPointListAPI(ListAPIView):
+    """List API for EdgeControlPoints"""
+    permission_classes = (AllowAny,)
+    queryset = EdgeControlPoint.objects.all()
+    serializer_class = EdgeControlPointSerializer
+
+
+class EdgeControlPointCreateAPI(CreateAPIView):
+    """API for creating EdgeControlPoints"""
+    permission_classes = (AllowAny,)
+    queryset = EdgeControlPoint.objects.all()
+    serializer_class = EdgeControlPointSerializer
+
+
+class EdgeControlPointViewAPI(RetrieveAPIView):
+    """API for getting a single EdgeControlPoint"""
+    permission_classes = (AllowAny,)
+    serializer_class = EdgeControlPointSerializer
+    queryset = EdgeControlPoint.objects.all()
+    lookup_field = "uuid"
+
+
+# NodeResource APIS
+class NodeResourceListAPI(ListAPIView):
+    """List API for NodeResources"""
+    permission_classes = (AllowAny,)
+    queryset = NodeResource.objects.all()
+    serializer_class = NodeResourceSerializer
+
+
+class NodeResourceCreateAPI(CreateAPIView):
+    """API for creating NodeResources"""
+    permission_classes = (AllowAny,)
+    queryset = NodeResource.objects.all()
+    serializer_class = NodeResourceSerializer
+
+
+class NodeResourceViewAPI(RetrieveAPIView):
+    """API for getting a single NodeResource"""
+    permission_classes = (AllowAny,)
+    serializer_class = NodeResourceSerializer
+    queryset = NodeResource.objects.all()
+    lookup_field = "uuid"
+
+
+# Stylesheet APIS
+class StylesheetListAPI(ListAPIView):
+    """List API for Stylesheets"""
+    permission_classes = (AllowAny,)
+    queryset = Stylesheet.objects.all()
+    serializer_class = StylesheetSerializer
+
+
+class StylesheetCreateAPI(CreateAPIView):
+    """API for creating Stylesheets"""
+    permission_classes = (AllowAny,)
+    queryset = Stylesheet.objects.all()
+    serializer_class = StylesheetSerializer
+
+
+class StylesheetViewAPI(RetrieveAPIView):
+    """API for getting a single Stylesheet"""
+    permission_classes = (AllowAny,)
+    serializer_class = StylesheetSerializer
+    queryset = Stylesheet.objects.all()
     lookup_field = "uuid"
