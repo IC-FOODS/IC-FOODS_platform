@@ -13,6 +13,7 @@ from icicle_know.models import (
     Edge,
     Map,
     EdgeControlPoint,
+    NodeResource,
     Stylesheet,
 )
 
@@ -164,6 +165,17 @@ class EdgeControlPointSerializer(serializers.ModelSerializer):
         extra_kwargs = {"uuid": {"read_only": True}}
 
 
+class NodeResourceSerializer(serializers.ModelSerializer):
+    """NodeResource Serializer"""
+
+    class Meta(object):
+        """Meta class for field info"""
+
+        model = NodeResource
+        fields = ["uuid", "node", "resource"]
+        extra_kwargs = {"uuid": {"read_only": True}}
+
+
 class StylesheetSerializer(serializers.ModelSerializer):
     """Stylesheet Serializer"""
 
@@ -173,3 +185,4 @@ class StylesheetSerializer(serializers.ModelSerializer):
         model = Stylesheet
         fields = ["uuid", "component", "style"]
         extra_kwargs = {"uuid": {"read_only": True}}
+
