@@ -128,6 +128,14 @@ class EdgeControlPoint(UUIDBaseModel):
     y_coord = models.IntegerField(null=False)
 
 
+class NodeResource(UUIDBaseModel):
+    """
+    NodeResource Model
+    """
+    node = models.ForeignKey("Node",on_delete=models.CASCADE,null=True,)
+    resource = models.ForeignKey("Resource",on_delete=models.CASCADE,null=True,)
+
+
 class Stylesheet(UUIDBaseModel):
     """
     Stylesheet Model
