@@ -1,12 +1,27 @@
 from django.urls import path
 
 from icicle_know.api import (
+    ComponentListAPI,
+    ComponentCreateAPI,
+    ComponentViewAPI,
     ConceptListAPI,
     ConceptCreateAPI,
     ConceptViewAPI,
+    ValueListAPI,
+    ValueCreateAPI,
+    ValueViewAPI,
+    ValueAnnotationListAPI,
+    ValueAnnotationCreateAPI,
+    ValueAnnotationViewAPI,
+    ResourceListAPI,
+    ResourceCreateAPI,
+    ResourceViewAPI,
     RelationListAPI,
     RelationCreateAPI,
     RelationViewAPI,
+    MapListAPI,
+    MapCreateAPI,
+    MapViewAPI,
     InstanceListAPI,
     InstanceCreateAPI,
     InstanceViewAPI,
@@ -19,10 +34,34 @@ from icicle_know.api import (
     EdgeListAPI,
     EdgeCreateAPI,
     EdgeViewAPI,
+    EdgeControlPointListAPI,
+    EdgeControlPointCreateAPI,
+    EdgeControlPointViewAPI,
+    NodeResourceListAPI,
+    NodeResourceCreateAPI,
+    NodeResourceViewAPI,
+    StylesheetListAPI,
+    StylesheetCreateAPI,
+    StylesheetViewAPI,
 )
 
 
 urlpatterns = [
+    path(
+        "components/",
+        ComponentListAPI.as_view(),
+        name="components",
+    ),
+    path(
+        "component/create/",
+        ComponentCreateAPI.as_view(),
+        name="component-create",
+    ),
+    path(
+        "component/<uuid:uuid>/",
+        ComponentViewAPI.as_view(),
+        name="component",
+    ),
     path(
         "concepts/",
         ConceptListAPI.as_view(),
@@ -39,6 +78,51 @@ urlpatterns = [
         name="concept",
     ),
     path(
+        "values/",
+        ValueListAPI.as_view(),
+        name="values",
+    ),
+    path(
+        "value/create/",
+        ValueCreateAPI.as_view(),
+        name="value-create",
+    ),
+    path(
+        "value/<uuid:uuid>/",
+        ValueViewAPI.as_view(),
+        name="value",
+    ),
+    path(
+        "value-annotations/",
+        ValueAnnotationListAPI.as_view(),
+        name="value-annotations",
+    ),
+    path(
+        "value-annotation/create/",
+        ValueAnnotationCreateAPI.as_view(),
+        name="value-annotation-create",
+    ),
+    path(
+        "value-annotation/<uuid:uuid>/",
+        ValueAnnotationViewAPI.as_view(),
+        name="value-annotation",
+    ),
+    path(
+        "resources/",
+        ResourceListAPI.as_view(),
+        name="resources",
+    ),
+    path(
+        "resource/create/",
+        ResourceCreateAPI.as_view(),
+        name="resource-create",
+    ),
+    path(
+        "resource/<uuid:uuid>/",
+        ResourceViewAPI.as_view(),
+        name="resource",
+    ),
+    path(
         "relations/",
         RelationListAPI.as_view(),
         name="relations",
@@ -52,6 +136,21 @@ urlpatterns = [
         "relation/<uuid:uuid>/",
         RelationViewAPI.as_view(),
         name="relation",
+    ),
+    path(
+        "maps/",
+        MapListAPI.as_view(),
+        name="maps",
+    ),
+    path(
+        "map/create/",
+        MapCreateAPI.as_view(),
+        name="map-create",
+    ),
+    path(
+        "map/<uuid:uuid>/",
+        MapViewAPI.as_view(),
+        name="map",
     ),
     path(
         "instances/",
@@ -112,5 +211,50 @@ urlpatterns = [
         "edge/<uuid:uuid>/",
         EdgeViewAPI.as_view(),
         name="edge",
+    ),
+    path(
+        "edge-control-points/",
+        EdgeControlPointListAPI.as_view(),
+        name="edge-control-points",
+    ),
+    path(
+        "edge-control-point/create/",
+        EdgeControlPointCreateAPI.as_view(),
+        name="edge-control-point-create",
+    ),
+    path(
+        "edge-control-point/<uuid:uuid>/",
+        EdgeControlPointViewAPI.as_view(),
+        name="edge-control-point",
+    ),
+    path(
+        "node-resources/",
+        NodeResourceListAPI.as_view(),
+        name="node-resources",
+    ),
+    path(
+        "node-resource/create/",
+        NodeResourceCreateAPI.as_view(),
+        name="node-resource-create",
+    ),
+    path(
+        "node-resource/<uuid:uuid>/",
+        NodeResourceViewAPI.as_view(),
+        name="node-resource",
+    ),
+    path(
+        "stylesheets/",
+        StylesheetListAPI.as_view(),
+        name="stylesheets",
+    ),
+    path(
+        "stylesheet/create/",
+        StylesheetCreateAPI.as_view(),
+        name="stylesheet-create",
+    ),
+    path(
+        "stylesheet/<uuid:uuid>/",
+        StylesheetViewAPI.as_view(),
+        name="stylesheet",
     ),
 ]
