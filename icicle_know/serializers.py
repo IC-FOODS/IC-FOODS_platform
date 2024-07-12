@@ -25,7 +25,7 @@ class ComponentSerializer(serializers.ModelSerializer):
         """Meta class for field info"""
 
         model = Component
-        fields = ["uuid", "title", "description"]
+        fields = ["uuid", "label", "description"]
         extra_kwargs = {"uuid": {"read_only": True}}
 
 
@@ -36,7 +36,7 @@ class ConceptSerializer(serializers.ModelSerializer):
         """Meta class for field info"""
 
         model = Concept
-        fields = ["uuid", "title", "iri"]
+        fields = ["uuid", "label", "iri"]
         extra_kwargs = {"uuid": {"read_only": True}}
 
 
@@ -82,7 +82,7 @@ class ResourceSerializer(serializers.ModelSerializer):
             "relation",
             "source",
             "subject",
-            "title",
+            "label",
             "extent",
         ]
         extra_kwargs = {"uuid": {"read_only": True}}
@@ -95,7 +95,7 @@ class RelationSerializer(serializers.ModelSerializer):
         """Meta class for field info"""
 
         model = Relation
-        fields = ["uuid", "title", "definition", "inverse", "iri"]
+        fields = ["uuid", "label", "definition", "inverse", "iri"]
         extra_kwargs = {"uuid": {"read_only": True}}
 
 
@@ -106,7 +106,7 @@ class InstanceSerializer(serializers.ModelSerializer):
         """Meta class for field info"""
 
         model = Instance
-        fields = ["uuid", "title", "concept", "item_type"]
+        fields = ["uuid", "label", "concept", "item_type"]
         extra_kwargs = {"uuid": {"read_only": True}}
 
 
@@ -185,4 +185,3 @@ class StylesheetSerializer(serializers.ModelSerializer):
         model = Stylesheet
         fields = ["uuid", "component", "style"]
         extra_kwargs = {"uuid": {"read_only": True}}
-
