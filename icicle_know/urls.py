@@ -26,6 +26,10 @@ from icicle_know.api import (
     InstanceCreateAPI,
     InstanceViewAPI,
     PropositionListAPI,
+    PropositionSubjectListAPI,
+    PropositionSubjectPredicateListAPI,
+    PropositionObjectListAPI,
+    PropositionObjectPredicateListAPI,
     PropositionCreateAPI,
     PropositionViewAPI,
     NodeListAPI,
@@ -171,6 +175,26 @@ urlpatterns = [
         "propositions/",
         PropositionListAPI.as_view(),
         name="propositions",
+    ),
+    path(
+        "propositions/subject/<uuid:subject_uuid>/",
+        PropositionSubjectListAPI.as_view(),
+        name="propositions-for-subject",
+    ),
+    path(
+        "propositions/subject/<uuid:subject_uuid>/predicate/<uuid:predicate_uuid>/",
+        PropositionSubjectPredicateListAPI.as_view(),
+        name="propositions-for-subject-predicate",
+    ),
+    path(
+        "propositions/object/<uuid:object_uuid>/",
+        PropositionObjectListAPI.as_view(),
+        name="propositions-for-object",
+    ),
+    path(
+        "propositions/object/<uuid:object_uuid>/predicate/<uuid:predicate_uuid>/",
+        PropositionObjectPredicateListAPI.as_view(),
+        name="propositions-for-object-predicate",
     ),
     path(
         "proposition/create/",

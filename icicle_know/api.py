@@ -31,6 +31,7 @@ from icicle_know.serializers import (
     MapSerializer,
     InstanceSerializer,
     PropositionSerializer,
+    PropositionDetailsSerializer,
     NodeSerializer,
     EdgeSerializer,
     EdgeControlPointSerializer,
@@ -137,6 +138,60 @@ class PropositionListAPI(ListAPIView):
     permission_classes = (AllowAny,)
     queryset = Proposition.objects.all()
     serializer_class = PropositionSerializer
+
+
+class PropositionSubjectListAPI(ListAPIView):
+    """List API for Propositions by Subject"""
+    permission_classes = (AllowAny,)
+    serializer_class = PropositionDetailsSerializer
+
+    def get_queryset(self):
+        """Get queryset for API"""
+        subject_uuid = self.kwargs['subject_uuid']
+        return Proposition.objects.filter(subject__uuid=subject_uuid)
+
+
+class PropositionSubjectPredicateListAPI(ListAPIView):
+    """List API for Propositions by Subject and Predicate"""
+    permission_classes = (AllowAny,)
+    serializer_class = PropositionDetailsSerializer
+
+    def get_queryset(self):
+        """Get queryset for API"""
+        subject_uuid = self.kwargs['subject_uuid']
+        predicate_uuid = self.kwargs['predicate_uuid']
+
+        return Proposition.objects.filter(
+            subject__uuid=subject_uuid,
+            predicate_uuid=predicate_uuid
+        )
+
+
+class PropositionObjectListAPI(ListAPIView):
+    """List API for Propositions by Object"""
+    permission_classes = (AllowAny,)
+    serializer_class = PropositionDetailsSerializer
+
+    def get_queryset(self):
+        """Get queryset for API"""
+        object_uuid = self.kwargs['object_uuid']
+        return Proposition.objects.filter(object__uuid=object_uuid)
+
+
+class PropositionObjectPredicateListAPI(ListAPIView):
+    """List API for Propositions by Object and Predicate"""
+    permission_classes = (AllowAny,)
+    serializer_class = PropositionDetailsSerializer
+
+    def get_queryset(self):
+        """Get queryset for API"""
+        object_uuid = self.kwargs['object_uuid']
+        predicate_uuid = self.kwargs['predicate_uuid']
+
+        return Proposition.objects.filter(
+            object_uuid=object_uuid,
+            predicate_uuid=predicate_uuid
+        )
 
 
 class PropositionCreateAPI(CreateAPIView):

@@ -121,6 +121,30 @@ class PropositionSerializer(serializers.ModelSerializer):
         extra_kwargs = {"uuid": {"read_only": True}}
 
 
+class PropositionDetailsSerializer(serializers.ModelSerializer):
+    """Proposition Details Serializer"""
+
+    subject_label = serializers.CharField(source='subject.label', read_only=True)
+    object_label = serializers.CharField(source='object.label', read_only=True)
+    predicate_label = serializers.CharField(source='predicate.label', read_only=True)
+
+    class Meta(object):
+        """Meta class for field info"""
+
+        model = Proposition
+        fields = [
+            "uuid",
+            "subject",
+            "subject_label",
+            "predicate",
+            "predicate_label",
+            "object",
+            "object_label",
+            "symetrical",
+        ]
+        extra_kwargs = {"uuid": {"read_only": True}}
+
+
 class MapSerializer(serializers.ModelSerializer):
     """Map Serializer"""
 
