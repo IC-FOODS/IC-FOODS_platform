@@ -189,8 +189,8 @@ class PropositionObjectPredicateListAPI(ListAPIView):
         predicate_uuid = self.kwargs['predicate_uuid']
 
         return Proposition.objects.filter(
-            object_uuid=object_uuid,
-            predicate_uuid=predicate_uuid
+            object__uuid=object_uuid,
+            predicate__uuid=predicate_uuid
         )
 
 
