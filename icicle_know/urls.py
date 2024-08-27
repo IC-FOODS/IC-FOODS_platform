@@ -3,6 +3,7 @@ from django.urls import path
 from icicle_know.api import (
     ComponentListAPI,
     ComponentCreateAPI,
+    ConceptLookupAPI,
     ComponentViewAPI,
     ConceptListAPI,
     ConceptCreateAPI,
@@ -23,6 +24,7 @@ from icicle_know.api import (
     MapCreateAPI,
     MapViewAPI,
     InstanceListAPI,
+    InstanceLookupAPI,
     InstanceCreateAPI,
     InstanceViewAPI,
     PropositionListAPI,
@@ -75,6 +77,11 @@ urlpatterns = [
         "concept/create/",
         ConceptCreateAPI.as_view(),
         name="concept-create",
+    ),
+    path(
+        "concept/lookup/<str:label>/",
+        ConceptLookupAPI.as_view(),
+        name="concept-lookup",
     ),
     path(
         "concept/<uuid:uuid>/",
@@ -165,6 +172,11 @@ urlpatterns = [
         "instance/create/",
         InstanceCreateAPI.as_view(),
         name="instance-create",
+    ),
+    path(
+        "instance/lookup/<str:label>",
+        InstanceLookupAPI.as_view(),
+        name="instance-lookup",
     ),
     path(
         "instance/<uuid:uuid>/",
