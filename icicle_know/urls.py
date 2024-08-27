@@ -174,7 +174,7 @@ urlpatterns = [
         name="instance-create",
     ),
     path(
-        "instance/lookup/<str:label>",
+        "instance/lookup/<str:label>/",
         InstanceLookupAPI.as_view(),
         name="instance-lookup",
     ),
