@@ -78,12 +78,14 @@ class ConceptCreateAPI(CreateAPIView):
     serializer_class = ConceptSerializer
 
 
-class ConceptLookupAPI(RetrieveAPIView):
-    """API for finding a Concept by label"""
+class ConceptLookupAPI(ListAPIView):
+    """API for finding Concepts by label"""
     permission_classes = (AllowAny,)
     serializer_class = ConceptSerializer
-    queryset = Concept.objects.all()
-    lookup_field = "label"
+
+    def get_queryset(self):
+        label = self.kwargs.get('label')
+        return Concept.objects.filter(label=label)
 
 
 class ConceptViewAPI(RetrieveAPIView):
@@ -131,12 +133,14 @@ class InstanceCreateAPI(CreateAPIView):
     queryset = Instance.objects.all()
     serializer_class = InstanceSerializer
 
-class InstanceLookupAPI(RetrieveAPIView):
-    """API for finding an Instance by its label"""
+class InstanceLookupAPI(ListAPIView):
+    """API for finding Instances by label"""
     permission_classes = (AllowAny,)
     serializer_class = InstanceSerializer
-    queryset = Instance.objects.all()
-    lookup_field = "label"
+
+    def get_queryset(self):
+        label = self.kwargs.get('label')
+        return Instance.objects.filter(label=label)
 
 class InstanceViewAPI(RetrieveAPIView):
     """API for getting a single Instance"""
