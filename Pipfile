@@ -18,6 +18,8 @@ psycopg2-binary = "==2.9.6"
 pyjwt = "==2.7.0"
 django-rest-knox = "==4.2.0"
 djangorestframework-simplejwt = "==5.2.2"
+rdflib = "==7.0.0"
+rdflib-sqlalchemy = "==0.5.4"
 
 [dev-packages]
 
