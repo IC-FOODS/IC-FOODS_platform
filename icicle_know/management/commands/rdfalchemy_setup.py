@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.core.management.base import BaseCommand
 import psycopg2
 from rdflib import (
@@ -21,26 +24,31 @@ import rdflib_sqlalchemy
 
 
 class Command(BaseCommand):
-    help = ""
+    help = "Setup RDF Alchemy"
 
     def setup_rdfalchemy(self) -> None:
         """Setup RDF Alchemy"""
 
         # Generic namespaces
-        EX = Namespace('http://example.org/')
-        FOAF = Namespace('http://xmlns.com/foaf/0.1/')
+        EX = Namespace("http://example.org/")
+        FOAF = Namespace("http://xmlns.com/foaf/0.1/")
 
         # SQLAlchemy translates the operations on RDF graphs into SQL queries that PostgreSQL understands.
         rdflib_sqlalchemy.registerplugins()
 
+        db_username = settings.DB_USERNAME
+        db_password = settings.DB_PASSWORD
+        db_host = settings.DB_HOST
+        db_name = settings.DB_NAME
+
         # SQLAlchemy uses this URI to establish a connection to the PostgreSQL database.
-        dburi = URIRef('postgresql+psycopg2://postgres:postgres@localhost/rdfgraph')
+        dburi = URIRef(f"postgresql+psycopg2://{db_username}:{db_password}@{db_host}/{db_name}")
 
         # To specify RDF graph and store
-        ident = URIRef('http://example.org/test')
+        ident = URIRef("http://example.org/test")
 
-        # Retrieves the SQLAlchemy plugin and creates an instance of it, using the 'ident' identifier.
-        store = plugin.get('SQLAlchemy', Store)(identifier=ident)
+        # Retrieves the SQLAlchemy plugin and creates an instance of it, using the "ident" identifier.
+        store = plugin.get("SQLAlchemy", Store)(identifier=ident)
 
         # This graph will be used to store and manipulate RDF data.
         graph = Graph(store, identifier=ident)
@@ -49,8 +57,8 @@ class Command(BaseCommand):
         graph.open(dburi, create=True)
 
         # Bind namespaces
-        graph.bind('ex', EX)
-        graph.bind('foaf', FOAF)
+        graph.bind("ex", EX)
+        graph.bind("foaf", FOAF)
 
         # Create triples
         bob = URIRef("http://example.org/people/Bob")
@@ -58,22 +66,22 @@ class Command(BaseCommand):
         # RDF.type: instance of a class
         """
         First triple: Bob is of type foaf:Person.
-        Second triple: Bob's name is "Bob".
-        Third triple: Bob's age is 30, with the age datatype specified as an integer.
+        Second triple: Bob"s name is "Bob".
+        Third triple: Bob"s age is 30, with the age datatype specified as an integer.
         """
         graph.add((bob, RDF.type, FOAF.Person)) # stored in type_statements table
         graph.add((bob, FOAF.name, Literal("Bob"))) # stored in literal_statement table
         graph.add((bob, FOAF.age, Literal(30, datatype=XSD.integer))) # stored in literal_statement table
 
         # Serialize the graph to a file or output
-        graph.serialize(format='turtle')
+        graph.serialize(format="turtle")
 
         # Define a SPARQL query to retrieve names and ages of all individuals in the RDF graph who are of type foaf:Person.
         """
         Check the type_statements table for entities that are of type foaf:Person.
         Then join these results with the literal_statements table to find matching foaf:name and foaf:age literals.
 
-        The SPARQL engine will generate SQL queries that perform joins between the relevant tables using the 'subject column as the common key.' Here’s an example of how the joins might look in SQL:
+        The SPARQL engine will generate SQL queries that perform joins between the relevant tables using the "subject column as the common key." Here’s an example of how the joins might look in SQL:
         """
         """
         SQL
@@ -82,9 +90,9 @@ class Command(BaseCommand):
         FROM type_statements ts
         JOIN literal_statements ls1 ON ts.member = ls1.subject
         JOIN literal_statements ls2 ON ts.member = ls2.subject
-        WHERE ts.klass = 'http://xmlns.com/foaf/0.1/Person'
-        AND ls1.predicate = 'http://xmlns.com/foaf/0.1/name'
-        AND ls2.predicate = 'http://xmlns.com/foaf/0.1/age';
+        WHERE ts.klass = "http://xmlns.com/foaf/0.1/Person"
+        AND ls1.predicate = "http://xmlns.com/foaf/0.1/name"
+        AND ls2.predicate = "http://xmlns.com/foaf/0.1/age";
 
         """
         query = """
