@@ -51,6 +51,8 @@ from icicle_know.api import (
     StylesheetViewAPI,
 )
 
+from icicle_know.sparql import SparqlAPIView
+
 
 urlpatterns = [
     path(
@@ -292,5 +294,10 @@ urlpatterns = [
         "stylesheet/<uuid:uuid>/",
         StylesheetViewAPI.as_view(),
         name="stylesheet",
+    ),
+    path(
+        "sparql/",
+        SparqlAPIView.as_view(),
+        name="sparql",
     ),
 ]
