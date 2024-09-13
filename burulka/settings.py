@@ -84,13 +84,18 @@ REST_FRAMEWORK = {
     ),
 }
 
+DB_USERNAME = os.environ.get("SQL_USER")
+DB_PASSWORD = os.environ.get("SQL_PASSWORD")
+DB_HOST = os.environ.get("SQL_HOST", "localhost")
+DB_NAME = os.environ.get("SQL_DATABASE")
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("SQL_DATABASE"),
-        "USER": os.environ.get("SQL_USER", "user"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "NAME": DB_NAME,
+        "USER": DB_USERNAME,
+        "PASSWORD": DB_PASSWORD,
+        "HOST": DB_HOST,
         "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }

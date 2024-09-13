@@ -142,3 +142,67 @@ class Stylesheet(UUIDBaseModel):
     """
     component = models.ForeignKey("Component",on_delete=models.CASCADE,null=True,)
     style = models.JSONField()
+
+
+class KbD5C47Fc464AssertedStatements(models.Model):
+    subject = models.TextField()
+    predicate = models.TextField()
+    object = models.TextField()
+    context = models.TextField()
+    termcomb = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'kb_d5c47fc464_asserted_statements'
+        unique_together = (('subject', 'predicate', 'object', 'context'),)
+
+
+class KbD5C47Fc464LiteralStatements(models.Model):
+    subject = models.TextField()
+    predicate = models.TextField()
+    object = models.TextField(blank=True, null=True)
+    context = models.TextField()
+    termcomb = models.IntegerField()
+    objlanguage = models.CharField(max_length=255, blank=True, null=True)
+    objdatatype = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'kb_d5c47fc464_literal_statements'
+        unique_together = (('subject', 'predicate', 'object', 'objlanguage', 'context'),)
+
+
+class KbD5C47Fc464NamespaceBinds(models.Model):
+    prefix = models.CharField(primary_key=True, max_length=20)
+    uri = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'kb_d5c47fc464_namespace_binds'
+
+
+class KbD5C47Fc464QuotedStatements(models.Model):
+    subject = models.TextField()
+    predicate = models.TextField()
+    object = models.TextField(blank=True, null=True)
+    context = models.TextField()
+    termcomb = models.IntegerField()
+    objlanguage = models.CharField(max_length=255, blank=True, null=True)
+    objdatatype = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'kb_d5c47fc464_quoted_statements'
+        unique_together = (('subject', 'predicate', 'object', 'objlanguage', 'context'),)
+
+
+class KbD5C47Fc464TypeStatements(models.Model):
+    member = models.TextField()
+    klass = models.TextField()
+    context = models.TextField()
+    termcomb = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'kb_d5c47fc464_type_statements'
+        unique_together = (('member', 'klass', 'context'),)
