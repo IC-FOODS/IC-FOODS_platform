@@ -1,6 +1,5 @@
-version: '3.8'
+version: "3.8"
 services:
-
   django:
     build:
       context: .
@@ -22,7 +21,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-        - ./.env
+      - ./.env
     restart: on-failure
     ports:
       - 5432:5432
