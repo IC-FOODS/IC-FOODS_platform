@@ -1,6 +1,6 @@
 from django.conf import settings
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -18,13 +18,16 @@ from rdflib.plugins.stores.sparqlstore import SPARQLStore
 from rdflib.store import Store
 import logging
 
+from icicle_tapis.auth import TapisAuthentication
+
 
 log = logging.getLogger("django.log")
 
 
 class SparqlAPIView(APIView):
     """SPARQL endpoint API"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
 
     def post(self, request, *args, **kwargs):
         """SPARQL handle HTTP post"""
