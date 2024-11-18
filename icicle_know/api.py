@@ -3,8 +3,9 @@ from rest_framework.generics import (
     ListAPIView,
     RetrieveAPIView,
 )
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
+from icicle_tapis.auth import TapisAuthentication
 from icicle_know.models import (
     Component,
     Concept,
@@ -50,7 +51,8 @@ class ComponentListAPI(ListAPIView):
 
 class ComponentCreateAPI(CreateAPIView):
     """API for creating Components"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Component.objects.all()
     serializer_class = ComponentSerializer
 
@@ -73,7 +75,8 @@ class ConceptListAPI(ListAPIView):
 
 class ConceptCreateAPI(CreateAPIView):
     """API for creating Concepts"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Concept.objects.all()
     serializer_class = ConceptSerializer
 
@@ -106,7 +109,8 @@ class RelationListAPI(ListAPIView):
 
 class RelationCreateAPI(CreateAPIView):
     """API for creating Relations"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Relation.objects.all()
     serializer_class = RelationSerializer
 
@@ -129,7 +133,8 @@ class InstanceListAPI(ListAPIView):
 
 class InstanceCreateAPI(CreateAPIView):
     """API for creating Instances"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Instance.objects.all()
     serializer_class = InstanceSerializer
 
@@ -214,7 +219,8 @@ class PropositionObjectPredicateListAPI(ListAPIView):
 
 class PropositionCreateAPI(CreateAPIView):
     """API for creating Propositions"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Proposition.objects.all()
     serializer_class = PropositionSerializer
 
@@ -237,7 +243,8 @@ class ValueListAPI(ListAPIView):
 
 class ValueCreateAPI(CreateAPIView):
     """API for creating Values"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Value.objects.all()
     serializer_class = ValueSerializer
 
@@ -283,7 +290,8 @@ class ResourceListAPI(ListAPIView):
 
 class ResourceCreateAPI(CreateAPIView):
     """API for creating Resources"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Resource.objects.all()
     serializer_class = ResourceSerializer
 
@@ -306,7 +314,8 @@ class NodeListAPI(ListAPIView):
 
 class NodeCreateAPI(CreateAPIView):
     """API for creating Nodes"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Node.objects.all()
     serializer_class = NodeSerializer
 
@@ -329,7 +338,8 @@ class EdgeListAPI(ListAPIView):
 
 class EdgeCreateAPI(CreateAPIView):
     """API for creating Edges"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Edge.objects.all()
     serializer_class = EdgeSerializer
 
@@ -352,7 +362,8 @@ class MapListAPI(ListAPIView):
 
 class MapCreateAPI(CreateAPIView):
     """API for creating Maps"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Map.objects.all()
     serializer_class = MapSerializer
 
@@ -375,7 +386,8 @@ class EdgeControlPointListAPI(ListAPIView):
 
 class EdgeControlPointCreateAPI(CreateAPIView):
     """API for creating EdgeControlPoints"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = EdgeControlPoint.objects.all()
     serializer_class = EdgeControlPointSerializer
 
@@ -398,7 +410,8 @@ class NodeResourceListAPI(ListAPIView):
 
 class NodeResourceCreateAPI(CreateAPIView):
     """API for creating NodeResources"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = NodeResource.objects.all()
     serializer_class = NodeResourceSerializer
 
@@ -421,7 +434,8 @@ class StylesheetListAPI(ListAPIView):
 
 class StylesheetCreateAPI(CreateAPIView):
     """API for creating Stylesheets"""
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TapisAuthentication,)
     queryset = Stylesheet.objects.all()
     serializer_class = StylesheetSerializer
 
